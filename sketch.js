@@ -7,7 +7,7 @@ let stripeSpeed = 1;
 let hidden = false;
 let showButton;
 
-let imageFile = "assets/2/composite.jpg"
+let imageFile = "assets/composite.jpg"
 
 function preload() {
   img = loadImage(imageFile);
