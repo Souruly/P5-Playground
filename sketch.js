@@ -1,5 +1,5 @@
 let stripes = [];
-let numberOfStripes = 25;
+let numberOfStripes = 50;
 let t1 = 15;
 let t2 = 5;
 let img;
@@ -7,7 +7,7 @@ let stripeSpeed = 1;
 let hidden = false;
 let showButton;
 
-let imageFile = "assets/composite.jpg"
+let imageFile = "assets/2/composite.jpg"
 
 function preload() {
   img = loadImage(imageFile);
@@ -78,7 +78,7 @@ function toggleShow()
 class Stripe {
   constructor(x) {
     this.x = x;
-    this.speed = 0.5;
+    this.speed = 0.4;
   }
 
   show() {
