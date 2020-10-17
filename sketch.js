@@ -7,9 +7,12 @@ let stripeSpeed = 1;
 let hidden = false;
 let showButton;
 
-let imageFile = "assets/composite.jpg"
+let imageFilesNums = [1, 2, 4, 5, 6, 7, 8, 4, 4];
 
 function preload() {
+  let imageFileNum = random(imageFilesNums);
+  let imageFile = "assets/composite" + imageFileNum.toString() + ".jpg";
+  print(imageFile);
   img = loadImage(imageFile);
 }
 
@@ -27,23 +30,20 @@ function setup() {
   }
 
   showButton = createButton("Show Stripes");
-  if(hidden)
-  {
-    showButton.html("Show Stripes")
-  }
-  else
-  {
-    showButton.html("Hide Stripes")
+  if (hidden) {
+    showButton.html("Show Stripes");
+  } else {
+    showButton.html("Hide Stripes");
   }
   showButton.mousePressed(toggleShow);
-  showButton.position(width-250,100);
+  showButton.position(width - 250, 100);
 }
 
 function draw() {
   background(255);
-  
-  image(img, width/2, height/2);
-  
+
+  image(img, width / 2, height / 2);
+
   stripes.forEach((s) => {
     if (hidden == false) {
       s.show();
@@ -59,19 +59,15 @@ function draw() {
 
   noStroke();
   fill(0);
-  text("Press UP/DOWN Arrow to move stripes.", width-200,50,200,50);
+  text("Press UP/DOWN Arrow to move stripes.", width - 200, 50, 200, 50);
 }
 
-function toggleShow()
-{
+function toggleShow() {
   hidden = !hidden;
-  if(hidden)
-  {
-    showButton.html("Show Stripes")
-  }
-  else
-  {
-    showButton.html("Hide Stripes")
+  if (hidden) {
+    showButton.html("Show Stripes");
+  } else {
+    showButton.html("Hide Stripes");
   }
 }
 
@@ -84,16 +80,16 @@ class Stripe {
   show() {
     fill(192);
     noStroke();
-    rect(this.x, height/2, t1, height);
+    rect(this.x, height / 2, t1, height);
   }
 
   update(s) {
-    this.x += s*this.speed;
-    if (this.x > width+t1/2) {
-      this.x = -t1/2;
+    this.x += s * this.speed;
+    if (this.x > width + t1 / 2) {
+      this.x = -t1 / 2;
     }
-    if (this.x < -t1/2) {
-      this.x = width+t1/2;
+    if (this.x < -t1 / 2) {
+      this.x = width + t1 / 2;
     }
   }
 }
