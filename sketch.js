@@ -1,9 +1,7 @@
-let stripes = [];
-let numberOfStripes = 50;
-let t1 = 15;
-let t2 = 5;
+
+let scr;
+
 let img;
-let stripeSpeed = 1;
 let hidden = false;
 let showButton;
 
@@ -23,11 +21,7 @@ function setup() {
   imageMode(CENTER);
   textSize(16);
 
-  for (let i = 0; i < numberOfStripes; i++) {
-    let stripeX = i * (t1 + t2);
-    let s = new Stripe(stripeX);
-    stripes.push(s);
-  }
+  scr = new StripedScreen(0, 0.6, 15, 5, 50);
 
   showButton = createButton("Show Stripes");
   if (hidden) {
@@ -44,18 +38,14 @@ function draw() {
 
   image(img, width / 2, height / 2);
 
-  stripes.forEach((s) => {
-    if (hidden == false) {
-      s.show();
+  scr.show();
+  if (keyIsPressed === true) {
+    if (keyCode === UP_ARROW) {
+      scr.update(1);
+    } else if (keyCode === DOWN_ARROW) {
+      scr.update(-1);
     }
-    if (keyIsPressed === true) {
-      if (keyCode === UP_ARROW) {
-        s.update(1);
-      } else if (keyCode === DOWN_ARROW) {
-        s.update(-1);
-      }
-    }
-  });
+  }
 
   noStroke();
   fill(0);
@@ -66,30 +56,85 @@ function toggleShow() {
   hidden = !hidden;
   if (hidden) {
     showButton.html("Show Stripes");
+    setStripeDecayTimer();
   } else {
     showButton.html("Hide Stripes");
   }
 }
 
-class Stripe {
-  constructor(x) {
+function setStripeDecayTimer() {
+  console.log("Decaying");
+  stripes.forEach((stripe) => {
+    stripe.life = 100;
+  });
+}
+
+function limitVal(a, min, max) {
+  if (a < min) {
+    return min;
+  }
+  if (a > max) {
+    return max;
+  }
+  return a;
+}
+
+class StripedScreen {
+  constructor(x, speed, t1, t2, num) {
     this.x = x;
-    this.speed = 0.4;
+    this.speed = speed;
+    this.t1 = t1;
+    this.t2 = t2;
+    this.numStripes = num;
+    this.stripes = [];
+    this.maxLeft = this.t1 * this.n + this.t2 * (this.n - 1);
+
+    for (let i = 0; i < this.numStripes; i++) {
+      let s = new Stripe();
+      this.stripes.push(s);
+    }
+  }
+
+  generateScreen() {
+    for (let i = 0; i < this.numStripes; i++) {
+      let s = new Stripe();
+      this.stripes.push(s);
+    }
   }
 
   show() {
-    fill(192);
-    noStroke();
-    rect(this.x, height / 2, t1, height);
+    for (let i = 0; i < this.numStripes; i++) {
+      let stripeX = this.x + i*(this.t1+this.t2);
+      this.stripes[i].show(stripeX, this.t1);
+    }
   }
 
   update(s) {
     this.x += s * this.speed;
-    if (this.x > width + t1 / 2) {
-      this.x = -t1 / 2;
+    if (this.x > width) {
+      this.x = width;
     }
-    if (this.x < -t1 / 2) {
-      this.x = width + t1 / 2;
+    if (this.x < -this.maxLeft) {
+      this.x = -this.maxLeft;
     }
+  }
+}
+
+class Stripe {
+  constructor() {
+    this.life = 100;
+  }
+
+  show(x, t1) {
+    if (hidden) {
+      this.life--;
+    } else {
+      this.life++;
+    }
+    this.life = limitVal(this.life, 0, 100);
+    let aVal = floor(map(this.life, 0, 100, 0, 255));
+    fill(192, aVal);
+    noStroke();
+    rect(x, height / 2, t1, height);
   }
 }
