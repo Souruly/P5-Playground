@@ -7,7 +7,7 @@ let stripeSpeed = 1;
 let hidden = false;
 let showButton;
 
-let imageFilesNums = [1, 2, 4, 5, 6, 7, 8, 4, 4];
+let imageFilesNums = [4, 1, 2, 4, 5, 6, 4, 7, 8, 4];
 
 function preload() {
   let imageFileNum = random(imageFilesNums);
