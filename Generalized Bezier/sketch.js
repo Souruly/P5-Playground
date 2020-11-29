@@ -7,11 +7,10 @@ let selectedPoint = -1;
 let numPointsSlider;
 let gameFrameCount=0;
 
-
 function resetSketch()
 {
     generateRandomPoints();
-    drawingBuffer.background(51);
+    drawingBuffer.background(240);
 
     lp = myPoints[0];
     gameFrameCount = 0;
@@ -64,11 +63,12 @@ function setup() {
   
   processNumPointsSLider();
 
-  drawingBuffer.stroke(255, 255, 0);
+  drawingBuffer.stroke(0, 0, 0);
+  drawingBuffer.strokeWeight(2);
 }
 
 function draw() {
-  background(51);
+  background(240);
   image(drawingBuffer, 0, 0);
 
   let f = gameFrameCount % maxTime;
@@ -77,20 +77,20 @@ function draw() {
   drawPoint(myPoints[0], color(0, 255, 0));
   drawPoint(myPoints[maxPoints - 1], color(255, 0, 0));
   for (let i = 1; i < maxPoints - 1; i++) {
-    drawPoint(myPoints[i], color(0));
+    drawPoint(myPoints[i], color(128));
   }
 
   drawPolyLine(myPoints);
 
   p = getBezierPoint(myPoints, t);
-  drawPoint(p, color(255, 255, 0));
+  drawPoint(p, color(0, 0, 255));
 
   if (t < 0.995) {
     drawingBuffer.line(lp.x, lp.y, p.x, p.y);
     lp = p;
   } else {
     lp = myPoints[0];
-    drawingBuffer.background(51);
+    drawingBuffer.background(240);
   }
 
   if (mouseIsPressed) {
