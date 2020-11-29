@@ -129,6 +129,11 @@ function processMousePress() {
 
     if (selectedPoint >= 0) {
       myPoints[selectedPoint] = mouseLoc.copy();
+      if(selectedPoint==0)
+      {
+        gameFrameCount = 0;
+        drawingBuffer.background(240);
+      }
     }
   }
 }
