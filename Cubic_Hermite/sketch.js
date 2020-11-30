@@ -5,7 +5,7 @@ let gameFrameCount = 0;
 let slopeMultiplier = 4;
 
 
-let buffer;
+let canvas, buffer;
 let lp, tp;
 
 function h03(t) {
@@ -42,7 +42,8 @@ function getPoint(ain, m1in, m2in, bin, t) {
 }
 
 function setup() {
-  createCanvas(600, 600);
+  canvas = createCanvas(600, 600);
+  canvas.parent("CanvasContainer");
   buffer = createGraphics(600, 600);
   ellipseMode(RADIUS);
 
