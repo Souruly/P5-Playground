@@ -99,6 +99,9 @@ function startDraw() {
   o2PhaseSlider.hide();
   o2SpeedSlider.hide();
   
+  spinnerRadiusSlider.hide();
+  spinnerSpeedSlider.hide();
+
   startButton.hide();
   console.log("Hi2");
 
