@@ -67,8 +67,8 @@ function draw(){
   imageMode(CORNER);
   image(buffer, 0, 0, 600, 600);
   // colorMode(RGB);
-  fill(192,128);
-  rect(1,1,599,599);
+  // fill(192,128);
+  // rect(1,1,599,599);
 
   fill(0);
   noStroke();
